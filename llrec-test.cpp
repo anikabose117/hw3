@@ -66,7 +66,12 @@ void dealloc(Node* head)
 //   Add any helper functions or
 //   function object struct declarations
 // -----------------------------------------------
-
+// predicate functor
+struct Odd{
+    bool operator()(int value){
+        return value % 2 != 0;
+    }
+};
 
 
 
@@ -86,10 +91,22 @@ int main(int argc, char* argv[])
     print(head);
 
     // Test out your linked list code
+    // llfilter test
+    head = llfilter(head, Odd());
+    cout << "Filter list: ";
+    print(head);
 
+    // llpivot test
+    Node* smallPivot = NULL;
+    Node* largePivot = NULL;
+    llpivot(head, smallPivot, largePivot, 10);
+    cout << "Head list: ";
+    print(head);
+    cout << "Small list: ";
+    print(smallPivot);
+    cout << "Large list: ";
+    print(largePivot);
 
-
-    
     return 0;
 
 }

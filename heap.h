@@ -61,13 +61,58 @@ public:
 
 private:
   /// Add whatever helper functions and data members you need below
+  std::vector<T> data_;
+  int m_;
+  PComparator c_; 
 
-
-
-
+  void heapify(size_t index);
 };
 
 // Add implementation of member functions here
+template <typename T, typename PComparator>
+void Heap<T,PComparator>::heapify(size_t index){
+  int leftChild = m_ * index + 1; 
+  int bestChild = leftChild;  
+  if (leftChild >= data_.size()){
+    return; 
+  }
+  for (int i = 0; i < m_; ++i){
+    int nextChild = leftChild + i;
+    if (nextChild < data_.size() && c_(data_[nextChild], data_[bestChild])) {
+      bestChild = nextChild; 
+  }
+  }
+
+  if (data_[index] != data_[bestChild]) { 
+      std::swap(data_[index], data_[bestChild]);
+      heapify(bestChild); 
+  }
+}
+
+template <typename T, typename PComparator>
+Heap<T,PComparator>::Heap(int m, PComparator c){
+  m_ = m;
+  c_ = c;
+}
+
+template <typename T, typename PComparator>
+Heap<T,PComparator>::~Heap(){   
+}
+
+
+template <typename T, typename PComparator>
+void Heap<T,PComparator>::push(const T& item){
+    data_.push_back(item);
+    size_t index = data_.size() - 1;
+    while (index != 0) {
+        size_t parentIndex = (index - 1) / m_;
+        if (!c_(data_[index], data_[parentIndex])) {
+            break;
+        }
+        std::swap(data_[index], data_[parentIndex]);
+        index = parentIndex;
+    }
+}
 
 
 // We will start top() for you to handle the case of 
@@ -81,14 +126,11 @@ T const & Heap<T,PComparator>::top() const
     // ================================
     // throw the appropriate exception
     // ================================
-
-
+    throw std::underflow_error("Error -- Empty");
   }
   // If we get here we know the heap has at least 1 item
   // Add code to return the top element
-
-
-
+  return data_.front();
 }
 
 
@@ -101,14 +143,24 @@ void Heap<T,PComparator>::pop()
     // ================================
     // throw the appropriate exception
     // ================================
-
-
+    throw std::underflow_error("Error -- Empty");
   }
-
-
-
+  std::swap(data_[0], data_.back());
+  data_.pop_back();
+  if (!empty()){
+    heapify(0);
+  }
 }
 
+template <typename T, typename PComparator>
+bool Heap<T,PComparator>::empty() const{
+  return data_.empty();
+}
+
+template <typename T, typename PComparator>
+size_t Heap<T,PComparator>::size() const{
+  return data_.size();
+}
 
 
 #endif
