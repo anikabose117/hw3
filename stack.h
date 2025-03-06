@@ -19,29 +19,35 @@ public:
     // Add other members only if necessary
 };
 
+// default implementation
 template <typename T>
 Stack<T>::Stack() : std::vector<T>{
 }
 
+// default implementation
 template <typename T>
 Stack<T>::~Stack() : std::vector<T>{   
 }
 
+// can use vector function because inherits from vector
 template <typename T>
 bool Stack<T>::empty() const{
     return std::vector<T>::empty();  
 }
 
+// can use vector function because inherits from vector
 template <typename T>
 size_t Stack<T>::size() const{
     return std::vector<T>::size();   
 }
 
+// can use vector function because inherits from vector
 template <typename T>
 void Stack::push(const T& item){
     std::vector<T>::push_back(item);    
 }
 
+// can use vector function because inherits from vector
 template <typename T>
 void Stack::pop(){
     if (empty()){
@@ -50,6 +56,7 @@ void Stack::pop(){
     std::vector<T>::pop_back();
 }
 
+// can use vector function because inherits from vector
 template <typename T>
 const T& Stack<T>::top() const{
     if (empty()){

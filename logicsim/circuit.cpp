@@ -112,6 +112,7 @@ bool Circuit::parse(const char* fname)
                 //Add code here to support the NOT gate type
                 if(s_type == "NOT")
                 {
+                    // only need one input wire for not gate
                     std::string s_in1;
                     getline(ss, s_in1, ',');
                     std::string s_output;

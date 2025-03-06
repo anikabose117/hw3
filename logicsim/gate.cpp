@@ -89,11 +89,13 @@ Event* Or2Gate::update(uint64_t current_time)
   return e;
 }
 
+// input wire = a, output wire = o, calls inherited constructor for output wire
 NotGate::NotGate(Wire* a, Wire* o) : Gate(1,o)
 {
     wireInput(0,a);
 }
 
+// updates NOT gate's state based on the input wire's state
 Event* NotGate::update(uint64_t current_time)
 {
     
@@ -107,7 +109,8 @@ Event* NotGate::update(uint64_t current_time)
 			state = '1';
 		}
 		else if(in == 'X')
-		{
+		{	
+			// no change to state, so break
 			state = 'X';
 			break;
 		}
@@ -116,6 +119,7 @@ Event* NotGate::update(uint64_t current_time)
 			state = '0';
 		}
 	}
+	// if state changes, schedules event for new state
     if(state != m_current_state)
 	{
     m_current_state = state;

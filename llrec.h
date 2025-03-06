@@ -86,12 +86,16 @@ Node* llfilter(Node* head, Comp pred)
     if (head == NULL){
         return NULL;
     }
+    // pred(value) returns true based on certain condition (in test cpp it returns true if odd)
     if (pred(head -> val)){
         Node* temp = head -> next;
+        // current node is disconnected and deleted from list
         head -> next = NULL;
         delete head;
         return llfilter(temp, pred);
     } else {
+        // current head is valid, move on to next node linked to it
+        // next "valid" node will link back to head
         head -> next = llfilter(head -> next, pred);
         return head;
     }

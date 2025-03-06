@@ -68,6 +68,7 @@ void dealloc(Node* head)
 // -----------------------------------------------
 // predicate functor
 struct Odd{
+    // returns true if odd
     bool operator()(int value){
         return value % 2 != 0;
     }

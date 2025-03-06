@@ -38,6 +38,7 @@ class Or2Gate : public Gate
 class NotGate : public Gate
 {
   public:
+    // only one input and one output wire
       NotGate(Wire*, Wire*);
       Event* update(uint64_t);
 };
