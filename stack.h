@@ -21,12 +21,12 @@ public:
 
 // default implementation
 template <typename T>
-Stack<T>::Stack() : std::vector<T>{
+Stack<T>::Stack() : std::vector<T>(){
 }
 
 // default implementation
 template <typename T>
-Stack<T>::~Stack() : std::vector<T>{   
+Stack<T>::~Stack(){   
 }
 
 // can use vector function because inherits from vector
@@ -43,13 +43,13 @@ size_t Stack<T>::size() const{
 
 // can use vector function because inherits from vector
 template <typename T>
-void Stack::push(const T& item){
+void Stack<T>::push(const T& item){
     std::vector<T>::push_back(item);    
 }
 
 // can use vector function because inherits from vector
 template <typename T>
-void Stack::pop(){
+void Stack<T>::pop(){
     if (empty()){
         throw std::underflow_error("Error -- Empty");
     }

@@ -5,6 +5,10 @@
 //*********************************************
 
 void llpivot(Node *&head, Node *&smaller, Node *&larger, int pivot){
+    // assume bogus values for smaller and larger at the start
+    smaller = NULL;
+    larger = NULL;
+    
     if (head == NULL){
         return;
     }
@@ -30,6 +34,6 @@ void llpivot(Node *&head, Node *&smaller, Node *&larger, int pivot){
         llpivot(nextElement, smaller -> next, larger, pivot);
     } 
 
-    // ensures list is empty and set to null 
+    // ensures head list is empty and set to null 
     head = NULL;
 }

@@ -2,6 +2,8 @@
 #define HEAP_H
 #include <functional>
 #include <stdexcept>
+#include <vector>
+//#include <iostream>
 
 template <typename T, typename PComparator = std::less<T> >
 class Heap
@@ -89,10 +91,10 @@ void Heap<T,PComparator>::heapify(size_t index){
     // update best child, i.e. trickle down if true
     if (nextChild < data_.size() && c_(data_[nextChild], data_[bestChild])) {
       bestChild = nextChild; 
-  }
+    }
   }
 
-  if (data_[index] != data_[bestChild]) { 
+  if (c_(data_[bestChild], data_[index])) { 
     // swap if parent is not in correct position
       std::swap(data_[index], data_[bestChild]);
       heapify(bestChild); 
@@ -117,6 +119,7 @@ void Heap<T,PComparator>::push(const T& item){
   // insert item at end of heap
     data_.push_back(item);
     size_t index = data_.size() - 1;
+    //std::cout << "Pushed item: " << item << "\n";
     // trickle up
     while (index != 0) {
         size_t parentIndex = (index - 1) / m_;
@@ -126,6 +129,7 @@ void Heap<T,PComparator>::push(const T& item){
         std::swap(data_[index], data_[parentIndex]);
         index = parentIndex;
     }
+    //std::cout << "Top item after push: " << data_.front() << "\n";
 }
 
 
@@ -161,12 +165,15 @@ void Heap<T,PComparator>::pop()
     // ================================
     throw std::underflow_error("Error -- Empty");
   }
+  //std::cout << "Last item: " << data_.back() << "\n";
   std::swap(data_[0], data_.back());
+  //std::cout << "Popped item: " << data_.back() << "\n";
   data_.pop_back();
-  if (!empty()){
+  if (!empty() /*&& data_.size() > 1*/){
     // trickle down element swapped to top
     heapify(0);
   }
+  //std::cout << "Top item after pop: " << data_.front() << "\n";
 }
 
 // calls vector function because it is a data member
